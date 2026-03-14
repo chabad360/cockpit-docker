@@ -24,7 +24,7 @@ On Fedora:
 These commands check out the source and build it into the `dist/` directory:
 
 ```
-git clone https://github.com/cockpit-docker/cockpit-docker
+git clone https://github.com/chabad360/cockpit-docker
 cd cockpit-docker
 make
 ```
