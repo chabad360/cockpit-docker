@@ -431,7 +431,31 @@ class Containers extends React.Component {
             emptyCaption = _("No running containers");
 
         if (this.props.containers !== null) {
-            filtered = Object.keys(this.props.containers).filter(id => !(this.props.filter === "running") || ["running", "restarting"].includes(this.props.containers[id].State?.Status));
+            const textFilter = this.props.textFilter.toLowerCase().trim();
+
+            filtered = Object.keys(this.props.containers).filter(id => {
+                const container = this.props.containers[id];
+
+                if (this.props.filter === "running" &&
+                    !["running", "restarting"].includes(container.State?.Status)) {
+                    return false;
+                }
+
+                if (!textFilter)
+                    return true;
+
+                const name = (container.Name || "").toLowerCase();
+                const image = (container.Config?.Image || container.Image || "").toLowerCase();
+                const containerId = (container.Id || "").toLowerCase();
+                const cmd = Array.isArray(container.Config?.Cmd)
+                    ? container.Config.Cmd.join(" ").toLowerCase()
+                    : (container.Config?.Cmd || "").toLowerCase();
+
+                return name.includes(textFilter) ||
+                       image.includes(textFilter) ||
+                       containerId.includes(textFilter) ||
+                       cmd.includes(textFilter);
+            });
 
             const getHealth = id => {
                 const state = this.props.containers[id]?.State;

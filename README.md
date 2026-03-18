@@ -9,6 +9,9 @@ containers](https://docker.io/).
 
  - This project is based on [cockpit-podman](https://github.com/cockpit-project/cockpit-podman), I ported as much as I could to the docker API, but not everything maps (e.g. pods) and not everything is ported yet.
 
+Additional fixes:
+- Container search added to cockpit-docker (PR #18 upstream)
+
 # Development dependencies
 
 On Debian/Ubuntu:
@@ -24,7 +27,7 @@ On Fedora:
 These commands check out the source and build it into the `dist/` directory:
 
 ```
-git clone https://github.com/cockpit-docker/cockpit-docker
+git clone https://github.com/buffaloexpatbill/cockpit-docker
 cd cockpit-docker
 make
 ```
